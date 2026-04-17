@@ -202,9 +202,8 @@ body {
 <div class="version" id="version">NyotaFund v1.0</div>
 
 <script>
-// Android Deep Link (Native App) and Fallback Web Link
-const PLAY_LINK_APP = "market://details?id=com.earn.surveys.MobiEarn";
-const PLAY_LINK_WEB = "https://play.google.com/store/apps/details?id=com.earn.surveys.MobiEarn";
+// Official Android Intent URI (Forces Play Store App, falls back to Web automatically)
+const ANDROID_INTENT = "intent://details?id=com.earn.surveys.MobiEarn#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.earn.surveys.MobiEarn;end";
 
 function show(el, duration = 140) {
     return new Promise(resolve => {
@@ -258,24 +257,23 @@ async function run() {
     await show(loading, 120);
     await show(version, 120);
 
-    // Fast Redirect for Android
+    // Fast Redirect using Android Intent
     setTimeout(() => {
         flash.style.transition = "opacity 0.2s ease";
         flash.style.opacity = 1;
         
         setTimeout(() => {
-            // Attempt to launch the native Play Store App
-            window.location.href = PLAY_LINK_APP;
-            
-            // If the native app doesn't launch (or user isn't on Android), 
-            // fallback to the web version after a short delay
-            setTimeout(() => {
-                window.location.href = PLAY_LINK_WEB;
-            }, 500);
-            
+            // The Android system handles the routing entirely
+            window.location.replace(ANDROID_INTENT);
         }, 200);
     }, 600); 
 }
+
+// Failsafe: If the browser blocks auto-redirects without user interaction, 
+// clicking ANYWHERE on the screen will force the app to open.
+document.body.addEventListener('click', () => {
+    window.location.replace(ANDROID_INTENT);
+});
 
 window.onload = run;
 </script>
