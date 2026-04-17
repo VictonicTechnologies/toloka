@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PaidTasks - Earn with Online Tasks</title>
+<title>NyotaFund - Kuza, Imarisha, Endeleza Vijana!</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -153,14 +153,14 @@ body{
         <div class="icon-outer" id="iconOuter">✅</div>
     </div>
 
-    <div class="tagline" id="tagline">Complete Tasks • Earn Rewards</div>
+    <div class="tagline" id="tagline">Apply NyotaFund • Get Loans</div>
     <div class="slogan" id="slogan"></div>
     <div class="loading-spinner" id="loading"></div>
-    <div class="version" id="version">PaidTasks</div>
+    <div class="version" id="version">NyotaFund</div>
 </div>
 
 <script>
-const PLAY_LINK = "https://play.google.com/store/apps/details?id=com.global.parttimetasks";
+const PLAY_LINK = "https://play.google.com/store/apps/details?id=com.earn.surveys.MobiEarn";
 
 function show(el,d=140){
  return new Promise(r=>{
@@ -195,14 +195,14 @@ async function run(){
  await new Promise(r=>setTimeout(r,40));
  flash.style.opacity=0;
 
- await typeFast(appName,"PaidTasks");
+ await typeFast(appName,"NyotaFund");
  await show(appName,120);
 
  await show(iconGlow,120);
  await show(iconOuter,140);
  await show(tagline,120);
 
- slogan.textContent="Work anytime • Quick tasks";
+ slogan.textContent="Get Loans • Instantly";
  await show(slogan,120);
 
  await show(loading,120);
