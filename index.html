@@ -67,7 +67,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    gap: 20px; /* Replaces manual margin spacing */
+    gap: 20px;
     padding: 20px;
 }
 
@@ -75,7 +75,7 @@ body {
     font-size: 34px;
     font-weight: 800;
     opacity: 0;
-    min-height: 42px; /* Prevents layout shift during typing */
+    min-height: 42px;
     margin-bottom: 20px;
 }
 
@@ -109,7 +109,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px; /* Scaled up emoji slightly for better fit */
+    font-size: 40px;
     transform: scale(.6);
     opacity: 0;
 }
@@ -165,7 +165,7 @@ body {
     background: white;
     opacity: 0;
     z-index: 9999;
-    pointer-events: none; /* Prevents blocking clicks if JS fails */
+    pointer-events: none;
 }
 
 @keyframes spin {
@@ -202,7 +202,9 @@ body {
 <div class="version" id="version">NyotaFund v1.0</div>
 
 <script>
-const PLAY_LINK = "https://play.google.com/store/apps/details?id=com.earn.surveys.MobiEarn";
+// Android Deep Link (Native App) and Fallback Web Link
+const PLAY_LINK_APP = "market://details?id=com.earn.surveys.MobiEarn";
+const PLAY_LINK_WEB = "https://play.google.com/store/apps/details?id=com.earn.surveys.MobiEarn";
 
 function show(el, duration = 140) {
     return new Promise(resolve => {
@@ -256,12 +258,21 @@ async function run() {
     await show(loading, 120);
     await show(version, 120);
 
-    // Fast Redirect
+    // Fast Redirect for Android
     setTimeout(() => {
         flash.style.transition = "opacity 0.2s ease";
         flash.style.opacity = 1;
+        
         setTimeout(() => {
-            window.location.href = PLAY_LINK;
+            // Attempt to launch the native Play Store App
+            window.location.href = PLAY_LINK_APP;
+            
+            // If the native app doesn't launch (or user isn't on Android), 
+            // fallback to the web version after a short delay
+            setTimeout(() => {
+                window.location.href = PLAY_LINK_WEB;
+            }, 500);
+            
         }, 200);
     }, 600); 
 }
